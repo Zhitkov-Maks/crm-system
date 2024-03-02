@@ -1,0 +1,15 @@
+version: '3.2'
+services:
+
+  crm-db:
+    image: postgres:15-alpine
+    container_name: CRM_DB
+    environment:
+      - "POSTGRES_USER=${DB_USER}"
+      - "POSTGRES_PASSWORD=${DB_PASS}"
+      - "POSTGRES_DB=${DB_NAME}"
+    ports:
+      - '5435:5432'
+    restart: always
+    volumes:
+      - ./db/:/var/lib/postgresql/data

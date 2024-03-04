@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-dyyfa3m%&+y5&r&uiwszesw#4+!mg8*cz-1w1gi#r%ao&&fu+=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['plugins.jetbrains.com', '127.0.0.1', 'resources.jetbrains.com']
 
 
 # Application definition
@@ -38,8 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',\
-    'services.apps.ServicesConfig'
+    'django.contrib.staticfiles',
+    'advertise.apps.AdvertiseConfig',
+    'leads.apps.LeadsConfig',
+    'contracts.apps.ContractsConfig',
+    'customers.apps.CustomersConfig',
+    'accounts.apps.AccountsConfig',
+    'products.apps.ProductsConfig',
+    'app.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -130,3 +137,4 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = 'login'

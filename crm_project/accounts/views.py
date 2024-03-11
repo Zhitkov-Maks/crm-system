@@ -7,13 +7,13 @@ class MyLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('index')
+        return reverse_lazy("index")
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Invalid username or password')
+        messages.error(self.request, "Invalid username or password")
         return self.render_to_response(self.get_context_data(form=form))
 
 
 class MyLogoutView(LogoutView):
     def get_success_url(self):
-        return reverse_lazy('login')
+        return reverse_lazy("login")

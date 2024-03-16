@@ -8,7 +8,7 @@
             {% for ad in ads %}
             <li class="list-group-item list-group-item-light d-flex justify-content-between">
                 <a href="/ads/{{ ad.pk }}" class="text-decoration-none link-dark">{{ ad.name }}</a>
-                <p>Лидов: {{ ad.leads_count }} | Активных клиентов: {{ ad.customers_count }} | Соотношение контрактов к затратам: {{ ad.profit|default_if_none:"-" }}</p>
+                <p>Лидов: <strong>{{ ad.leads_count }}</strong> | Активных клиентов: <strong>{{ ad.customers_count }}</strong> | Соотношение контрактов к затратам: <strong>{{ ad.profit|default_if_none:"-" }}</strong></p>
             </li>
             {% endfor %}
         </ul>

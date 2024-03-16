@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, QuerySet
+from django.db.models import Count
 from django.views.generic import TemplateView
 from django.core.cache import cache
 from products.models import Products
@@ -11,7 +11,7 @@ from customers.models import Customers
 class IndexView(LoginRequiredMixin, TemplateView):
     """Класс для отображения главной страницы."""
 
-    template_name = "users/index.html"
+    template_name: str = "users/index.html"
 
     def get_context_data(self):
         """

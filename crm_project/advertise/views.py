@@ -14,6 +14,7 @@ from django.db.models import Sum, Count, F, QuerySet, Q
 
 
 class ListAds(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс для отображения списка рекламных кампаний."""
     permission_required: str = "advertise.view_advertise"
     template_name: str = "ads/ads-list.html"
     model: Any = Advertise
@@ -21,18 +22,22 @@ class ListAds(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class AdsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс для поиска кампании по названию."""
     permission_required: str = "advertise.view_advertise"
     template_name: str = "ads/ads-list.html"
     model: Any = Advertise
     context_object_name: str = "ads"
 
     def get_queryset(self) -> QuerySet:
-        """Переопределяем метод для поиска клиента по фамилии"""
+        """
+        Переопределяем метод для поиска рекламной кампании по вхождению подстроки
+        в названии кампании.
+        """
         query = self.request.GET.get("query")
         return Advertise.objects.only("id", "name").filter(Q(name__iregex=query))
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        """Добавляет идентификатор для отображения сортировки в шаблоне"""
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
+        """Добавляет идентификатор для отображения ввода пользователя."""
         context = super().get_context_data()
         key = self.request.GET.get("query")
         context.update({"query": key})
@@ -40,6 +45,7 @@ class AdsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class StatisticView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс для получения статистики по рекламным кампаниям."""
     permission_required: str = "advertise.view_advertise"
     template_name: str = "ads/ads-statistic.html"
     model: Any = Advertise
@@ -70,12 +76,19 @@ class StatisticView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class DetailAds(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """Класс для удаления рекламной кампании."""
     permission_required: str = "advertise.view_advertise"
     template_name: str = "ads/ads-detail.html"
     model: Any = Advertise
 
 
-class DeleteAds(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class DeleteAds(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # type: ignore
+    """
+    Класс для удаления рекламной компании. Комментарий type: ignore нужен для mypy,
+    который прокидывает ошибку
+    'Definition of "object" in base class "DeletionMixin" is
+    incompatible with definition in base class "BaseDetailView"'.
+    """
     permission_required: str = "advertise.delete_advertise"
     template_name: str = "ads/ads-delete.html"
     model: Any = Advertise
@@ -83,6 +96,7 @@ class DeleteAds(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 
 class UpdateAds(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """Класс для изменения данных рекламной кампании."""
     permission_required: str = "advertise.change_advertise"
     template_name: str = "ads/ads-edit.html"
     fields: tuple = "name", "product", "budget"
@@ -91,6 +105,7 @@ class UpdateAds(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class CreateAds(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """Класс для создания рекламной кампании."""
     permission_required: str = "advertise.add_advertise"
     template_name: str = "ads/ads-create.html"
     fields: tuple = "name", "product", "budget"

@@ -4,5 +4,5 @@ from .models import Contracts
 
 @admin.register(Contracts)
 class ContractsAdmin(admin.ModelAdmin):
-    list_display = 'id', 'name'
-    list_display_links = 'id', 'name'
+    list_display = "id", "name"
+    list_display_links = "id", "name"

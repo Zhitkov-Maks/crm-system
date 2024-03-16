@@ -6,3 +6,4 @@ from .models import Products
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("pk", "name", "cost")
     list_display_links = ("name",)
+    search_fields = ("name",)

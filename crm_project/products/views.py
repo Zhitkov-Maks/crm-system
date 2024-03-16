@@ -63,7 +63,7 @@ class ProductsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
             .order_by("-products__count")
         )
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         """
         Добавляет идентификатор для отображения введенного пользователем слова для поиска.
         """

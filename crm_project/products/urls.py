@@ -9,7 +9,7 @@ from .views import (
 )
 
 
-urlpatterns = [
+urlpatterns: list = [
     path("", ListProducts.as_view(), name="list-product"),
     path("<int:pk>/", DetailProducts.as_view(), name="detail-product"),
     path("<int:pk>/delete/", DeleteProducts.as_view(), name="delete-product"),

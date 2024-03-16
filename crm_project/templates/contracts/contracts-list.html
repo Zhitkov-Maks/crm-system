@@ -2,6 +2,15 @@
 
 {% block content %}
 <h2 class="fw-bold">Контракты</h2>
+<div class="search-content">
+    <div>
+        <form action="{% url 'contracts-search' %}" method="get" role="search">
+            <label for="query"></label><input id="query" name="query" value="{{ query }}" type="text" placeholder="Поиск по названию"/>
+              <button class="search-button" type="submit" id="search">Search
+              </button>
+        </form>
+    </div>
+</div>
 <div class="row bg-white px-3 py-3 mx-2 my-5 rounded pb-5 shadow-lg">
     <div class="hstack gap-3 pb-4">
         <a href="/contracts/new" class="btn btn-success p-2">Создать</a>

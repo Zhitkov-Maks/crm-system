@@ -16,6 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.contrib.staticfiles.views import serve
+from django.views.static import serve as media_serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +28,10 @@ urlpatterns = [
     path('leads/', include('leads.urls')),
     path('contracts/', include('contracts.urls')),
     path('customers/', include('customers.urls')),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
+
+if not settings.DEBUG:
+    urlpatterns.append(path('static/<path:path>', serve, {'insecure': True}))
+    urlpatterns.append(path('media/<path:path>', media_serve, {'document_root': settings.MEDIA_ROOT}))

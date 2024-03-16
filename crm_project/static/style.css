@@ -40,3 +40,14 @@ body {
     float: left;
     font-size: 9rem;
 }
+
+.search-content {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

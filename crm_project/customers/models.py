@@ -6,6 +6,7 @@ from contracts.models import Contracts
 
 
 class Customers(models.Model):
+    """Модель для представления активных клиентов."""
     lead: ForeignKey = models.ForeignKey(
         Leads, on_delete=models.CASCADE, related_name="leads"
     )

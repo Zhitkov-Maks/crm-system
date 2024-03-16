@@ -4,5 +4,7 @@ from .models import Customers
 
 @admin.register(Customers)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ("id", "lead")
+    """Настройки админки для Активных клиентов."""
+    list_display = ("id", "lead", "contract")
+    autocomplete_fields = ("lead",)
     list_display_links = ("id", "lead")

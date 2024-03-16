@@ -9,7 +9,7 @@ from .views import (
 )
 
 
-urlpatterns = [
+urlpatterns: list = [
     path("", CustomerList.as_view(), name="customer-list"),
     path("<int:pk>/edit/", CustomerUpdate.as_view(), name="customer-edit"),
     path("<int:pk>/", CustomerDetail.as_view(), name="customer-detail"),

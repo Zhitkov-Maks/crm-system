@@ -40,7 +40,7 @@ class ListLeadsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
             "id", "last_name", "first_name", "middle_name"
         ).filter(Q(last_name__iregex=query))
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         """Добавляет идентификатор для отображения ввода пользователя в шаблоне."""
         context = super().get_context_data()
         key = self.request.GET.get("query")

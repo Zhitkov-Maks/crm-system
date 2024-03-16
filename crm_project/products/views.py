@@ -68,7 +68,7 @@ class ProductsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         Добавляет идентификатор для отображения введенного пользователем слова для поиска.
         """
         context = super().get_context_data()
-        key: str | None = self.request.GET.get("query")
+        key = self.request.GET.get("query")
         context.update({"query": key})
         return context
 

@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q, QuerySet
 from django.views.generic import (
@@ -11,17 +13,25 @@ from .models import Leads
 
 
 class ListLeads(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_required = "leads.view_leads"
-    template_name = "leads/leads-list.html"
-    model = Leads
-    context_object_name = "leads"
+    """
+    Класс для отображения списка Потенциальных клиентов. Доступен пользователям у которых
+    присутствует разрешение 'view_leads'.
+    """
+    permission_required: str = "leads.view_leads"
+    template_name: str = "leads/leads-list.html"
+    model: Any = Leads
+    context_object_name: str = "leads"
 
 
 class ListLeadsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_required = "leads.view_leads"
-    template_name = "leads/leads-list.html"
-    model = Leads
-    context_object_name = "leads"
+    """
+    Класс для поиска Лидов по введенной пользователем фамилии, без учета регистра.
+    Доступно пользователям с разрешением "view_leads."
+    """
+    permission_required: str = "leads.view_leads"
+    template_name: str = "leads/leads-list.html"
+    model: Any = Leads
+    context_object_name: str = "leads"
 
     def get_queryset(self) -> QuerySet:
         """Переопределяем метод для поиска клиента по фамилии"""
@@ -31,7 +41,7 @@ class ListLeadsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         ).filter(Q(last_name__iregex=query))
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        """Добавляет идентификатор для отображения сортировки в шаблоне"""
+        """Добавляет идентификатор для отображения ввода пользователя в шаблоне."""
         context = super().get_context_data()
         key = self.request.GET.get("query")
         context.update({"query": key})
@@ -39,29 +49,44 @@ class ListLeadsSearch(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class DetailLeads(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    permission_required = "leads.view_leads"
-    template_name = "leads/leads-detail.html"
-    model = Leads
+    """
+    Класс для отображения детальной информации о Лиде. Доступно пользователям с
+    разрешением view_leads.
+    """
+    permission_required: str = "leads.view_leads"
+    template_name: str = "leads/leads-detail.html"
+    model: Any = Leads
 
 
-class DeleteLeads(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = "leads.delete_leads"
-    template_name = "leads/leads-delete.html"
-    model = Leads
-    success_url = "/leads/"
+class DeleteLeads(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # type: ignore
+    """
+    Класс для удаления Лида. Доступен пользователям с разрешением ''delete_leads.
+    Комментарий type: ignore нужен для mypy, так как выдает ошибку
+    'Definition of "object" in base class "DeletionMixin" is
+    incompatible with definition in base class "BaseDetailView"'
+    """
+    permission_required: str = "leads.delete_leads"
+    template_name: str = "leads/leads-delete.html"
+    model: Any = Leads
+    success_url: str = "/leads/"
 
 
 class UpdateLeads(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = "leads.change_leads"
-    template_name = "leads/leads-edit.html"
-    fields = "first_name", "last_name", "middle_name", "email", "phone"
-    model = Leads
-    success_url = "/leads/"
+    """
+    Класс для обновления данных у Лида. Доступен пользователям с разрешением
+    'change_leads'.
+    """
+    permission_required: str = "leads.change_leads"
+    template_name: str = "leads/leads-edit.html"
+    fields: tuple = "first_name", "last_name", "middle_name", "email", "phone"
+    model: Any = Leads
+    success_url: str = "/leads/"
 
 
 class CreateLeads(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = "leads.add_leads"
-    template_name = "leads/leads-create.html"
-    fields = "first_name", "last_name", "middle_name", "email", "phone", "advertising"
-    success_url = "/leads/"
-    model = Leads
+    """Класс для создания Лидов. Доступен пользователям с разрешением 'add_leads'."""
+    permission_required: str = "leads.add_leads"
+    template_name: str = "leads/leads-create.html"
+    fields: tuple = "first_name", "last_name", "middle_name", "email", "phone", "advertising"
+    success_url: str = "/leads/"
+    model: Any = Leads

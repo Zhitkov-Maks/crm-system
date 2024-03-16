@@ -4,6 +4,7 @@ from .models import Contracts
 
 
 class ContractForm(forms.ModelForm):
+    """Форма для создания контрактов."""
     class Meta:
         model = Contracts
         fields = "__all__"

@@ -8,7 +8,7 @@ from .views import (
     ContractsSearch
 )
 
-urlpatterns = [
+urlpatterns: list = [
     path("new/", CreateContract.as_view(), name="create-contract"),
     path("", ListContract.as_view(), name="list-contracts"),
     path("<int:pk>/edit/", UpdateContract.as_view(), name="update-contracts"),

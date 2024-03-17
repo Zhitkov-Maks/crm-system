@@ -25,6 +25,8 @@ class Contracts(models.Model):
         return f"{str(self.name)}"
 
     class Meta:
+        """Указываем сортировку и имена которые будут указываться в админ панели."""
+
         ordering = ("name",)
         verbose_name = "контракт"
         verbose_name_plural = "контракты"

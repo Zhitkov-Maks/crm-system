@@ -8,9 +8,9 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from .models import Advertise
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Sum, Count, F, QuerySet, Q
+from .models import Advertise
 
 
 class ListAds(LoginRequiredMixin, PermissionRequiredMixin, ListView):

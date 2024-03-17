@@ -10,9 +10,9 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from .models import Products
 from django.db.models.deletion import ProtectedError
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from .models import Products
 
 
 class ListProducts(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -108,7 +108,7 @@ class DeleteProducts(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  
             return redirect("/products/")
         except ProtectedError:
             return HttpResponse(
-                f"<h1>Невозможно удалить услугу так как есть связанные записи.</h1>"
+                "<h1>Невозможно удалить услугу так как есть связанные записи.</h1>"
             )
 
 

@@ -30,6 +30,8 @@ class Leads(models.Model):
         return f"{str(self.last_name)} {str(self.first_name)} {str(self.middle_name)} "
 
     class Meta:
+        """Указываем сортировку и имена которые будут указываться в админ панели."""
+
         ordering: tuple = ("last_name",)
         verbose_name: str = "потенциальный клиент"
         verbose_name_plural: str = "потенциальные клиенты"

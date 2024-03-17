@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "customers.apps.CustomersConfig",
     "accounts.apps.AccountsConfig",
     "products.apps.ProductsConfig",
-    "app.apps.AppConfig",
+    "app.apps.ApplicationConfig",
     "debug_toolbar",
 ]
 

@@ -25,6 +25,10 @@ class Advertise(models.Model):
         return f"{str(self.name)}"
 
     class Meta:
+        """
+        Указываем как будут сортироваться рекламные кампании и
+        как будет показываться название в админ панели.
+        """
         ordering: tuple = ("name",)
         verbose_name: str = "кампания"
         verbose_name_plural: str = "кампании"

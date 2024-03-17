@@ -7,6 +7,7 @@ from contracts.models import Contracts
 
 class Customers(models.Model):
     """Модель для представления активных клиентов."""
+
     lead: ForeignKey = models.ForeignKey(
         Leads, on_delete=models.CASCADE, related_name="leads"
     )
@@ -18,6 +19,8 @@ class Customers(models.Model):
         return f"{str(self.lead)}"
 
     class Meta:
+        """Указываем сортировку и имена которые будут указываться в админ панели."""
+
         verbose_name = "активный клиент"
         verbose_name_plural = "активные клиенты"
         unique_together = ("lead", "contract")

@@ -6,6 +6,10 @@ from .models import Contracts
 class ContractForm(forms.ModelForm):
     """Форма для создания контрактов."""
     class Meta:
+        """
+        Указываем какая модель будет использоваться для формы,
+        какие поля, и некоторые настройки отображения.
+        """
         model = Contracts
         fields = "__all__"
         help_texts = {

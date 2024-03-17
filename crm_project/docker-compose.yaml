@@ -27,5 +27,6 @@ services:
     restart: always
     volumes:
       - ./files/:/crm_project/files
+      - ./fixture/:/crm_project/fixture
     depends_on:
       - crm-db

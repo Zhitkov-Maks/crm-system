@@ -12,7 +12,7 @@ class Customers(models.Model):
         Leads, on_delete=models.CASCADE, related_name="leads"
     )
     contract: OneToOneField = models.OneToOneField(
-        Contracts, on_delete=models.CASCADE, related_name="contracts"
+        Contracts, on_delete=models.CASCADE, related_name="contracts", default=0
     )
 
     def __str__(self):

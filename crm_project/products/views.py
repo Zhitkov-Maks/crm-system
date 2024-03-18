@@ -1,3 +1,4 @@
+import datetime
 from typing import Any
 
 from django.db.models import Count, QuerySet, Q
@@ -10,8 +11,9 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from django.db.models.deletion import ProtectedError
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+from contracts.models import Contracts
 from .models import Products
 
 
@@ -94,22 +96,20 @@ class DeleteProducts(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  
     permission_required: str = "products.delete_products"
     template_name: str = "products/products-delete.html"
     model: Any = Products
-    success_url: str = "/products/"
 
     def post(self, request, *args, **kwargs) -> HttpResponse:
         """
-        Переопределили метод пост для того чтобы не выпадала 500 ошибка при
-        попытке удалить услугу, с которой через кампании связаны потенциальные клиенты.
-        Которых я защитил от удаления при удалении услуги.
+        Переопределил метод, для того чтобы при удалении услуги проверять нет ли действующих
+        контрактов по данной услуге, если есть то удалить запрещаем.
         """
-        product: Products = self.get_object()
-        try:
-            product.delete()
-            return redirect("/products/")
-        except ProtectedError:
-            return HttpResponse(
-                "<h1>Невозможно удалить услугу так как есть связанные записи.</h1>"
-            )
+        product = self.get_object()
+        today_date = datetime.date.today()
+        if Contracts.objects.filter(product_id=product.pk, end_date__gte=today_date).exists():
+            return HttpResponse("""<h1 style="padding-top: 50px; text-align: center;">
+            Нельзя удалить услугу, так как имеются действующие контракты.
+            </h1>""")
+        product.delete()
+        return redirect("list-product")
 
 
 class UpdateProducts(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):

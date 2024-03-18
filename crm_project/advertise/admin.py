@@ -10,3 +10,4 @@ class AdvertiseAdmin(admin.ModelAdmin):
     search_fields: tuple = ('name',)
     list_editable: tuple = ('budget',)
     list_select_related: bool = True
+    autocomplete_fields: tuple = ("product",)

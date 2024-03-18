@@ -22,18 +22,18 @@ class IndexView(LoginRequiredMixin, TemplateView):
         """
         context = super().get_context_data()
         products_count: QuerySet | Any = cache.get_or_set(
-            "products_count", Products.objects.count(), 60 * 30
+            "products_count", Products.objects.count(), 60 * 10
         )
         advertisements_count: QuerySet | Any = cache.get_or_set(
-            "advertisements_count", Advertise.objects.count(), 60 * 30
+            "advertisements_count", Advertise.objects.count(), 60 * 10
         )
         leads_count: QuerySet | Any = cache.get_or_set(
-            "leads_count", Leads.objects.count(), 60 * 30
+            "leads_count", Leads.objects.count(), 60 * 10
         )
         customers_count: QuerySet | Any = cache.get_or_set(
             "customers_count",
             Customers.objects.all().aggregate(count=Count("lead_id", distinct=True)),
-            60 * 30,
+            60 * 10,
         )
         context.update(
             {

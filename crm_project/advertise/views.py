@@ -108,6 +108,6 @@ class CreateAds(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """Класс для создания рекламной кампании."""
     permission_required: str = "advertise.add_advertise"
     template_name: str = "ads/ads-create.html"
-    fields: tuple = "name", "product", "budget"
+    fields: tuple = "name", "product", "budget", "promotion_channel"
     success_url: str = "/ads/"
     model: Any = Advertise

@@ -21,8 +21,9 @@ class Leads(models.Model):
     email: EmailField = models.EmailField(max_length=50, verbose_name="Email")
     advertising: ForeignKey = models.ForeignKey(
         Advertise,
+        null=True,
         verbose_name="кампания",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         related_name="leads",
     )
 
@@ -35,3 +36,4 @@ class Leads(models.Model):
         ordering: tuple = ("last_name",)
         verbose_name: str = "потенциальный клиент"
         verbose_name_plural: str = "потенциальные клиенты"
+        unique_together: tuple = ("last_name", "first_name", "middle_name", "email", "phone")

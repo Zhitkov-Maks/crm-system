@@ -22,7 +22,7 @@ class Contracts(models.Model):
     )
 
     def __str__(self):
-        return f"{str(self.name)}"
+        return f"{str(self.name)} / {str(self.product)}"
 
     class Meta:
         """Указываем сортировку и имена которые будут указываться в админ панели."""
